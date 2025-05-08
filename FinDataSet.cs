@@ -20,7 +20,6 @@ namespace FinDataAlphaVantage
 
         internal bool ProcessDataSuccessful { get; private set; } = false;
         internal List<string> LineByLineData { get; private set; } = new();
-        //internal List<Candle> Candles { get; private set; } = new();
 
 
 
@@ -54,31 +53,7 @@ namespace FinDataAlphaVantage
                 MessageBox.Show(exception.Message, "Error");
             }
         }
-        /* ------
-        internal void ProcessRawData()
-        {
-            Debug.Assert(RetrieveRawDataSuccessful, "Cannot process data. Retrieve was not successful (yet).");
-            LineByLineData = RawData.Split('\n').ToList();
-            
-            for(int i = 1; i < LineByLineData.Count; i++ )
-            {
-                string[] fields = LineByLineData[i].Split(',');
-                Debug.Assert(fields.Length == 6, $"Line {i} does not have six entries. " +
-                    $"This line is not in the standard form of Alpha Vantage data.");
 
-                string dateOrTime = fields[0];
-                float open = float.Parse(fields[1]);
-                float high = float.Parse(fields[2]);
-                float low = float.Parse(fields[3]);
-                float close = float.Parse(fields[4]);
-                float volume = float.Parse(fields[5]);
-
-                Candles.Add(new Candle(dateOrTime, open, high, low, close, volume));                
-            }
-
-            ProcessDataSuccessful = true;
-        }
-        */
         internal void WriteRawDataToFile(string completeFilePath)
         {
             Debug.Assert(RetrieveRawDataSuccessful, "Cannot print data. Retrieve was not successful (yet).");
@@ -114,28 +89,7 @@ namespace FinDataAlphaVantage
         }
 
     }
-    /*
-    internal struct Candle
-    {
-        internal string DateOrTime { get; private set; }
-        internal float Open { get; private set; }
-        internal float High { get; private set; }
-        internal float Low { get; private set; }
-        internal float Close { get; private set; }
-        internal float Volume { get; private set; }
-
-        internal Candle(string dateOrTime, float open, float high, float low, float close, float volume)
-        {
-            DateOrTime = dateOrTime;
-            Open = open;
-            High = high;
-            Low = low;
-            Close = close;
-            Volume = volume;
-        }
-
-    }
-    */
+   
     internal enum TimeSeries { None, Intraday, Daily, DailyAdjusted, Weekly, WeeklyAdjusted, Monthly, MonthlyAdjusted };
 
 
